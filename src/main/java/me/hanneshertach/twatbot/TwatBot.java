@@ -17,7 +17,8 @@ public class TwatBot {
     try {
       jda = new JDABuilder(AccountType.BOT)
           .setToken(token)
-          .addEventListener(new PingPongListener())
+          .addEventListener(new HelpMenuListener())
+          .addEventListener(new HotStuffHandler())
           .buildBlocking();
     } catch (LoginException e) {
       e.printStackTrace();

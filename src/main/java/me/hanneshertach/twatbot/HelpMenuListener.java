@@ -5,7 +5,7 @@ import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 
-public class PingPongListener implements EventListener {
+public class HelpMenuListener implements EventListener {
   public void onEvent(Event event) {
 
     if (!(event instanceof MessageReceivedEvent)) {
@@ -21,25 +21,20 @@ public class PingPongListener implements EventListener {
     Message message = messageEvent.getMessage();
     String messageString = message.getContentRaw();
 
-    if (messageString.equals("!oi twat")) {
+    if (messageString.equals("!twat")) {
       message.getChannel().sendMessage("Waddup ya cunt?").queue();
     }
 
-    if (messageString.equals("Waddup ya cunt?")) {
+    if (messageString.equals("!twat Waddup ya cunt?")) {
       message.getChannel().sendMessage("Not much, how bout yerself, je wanker?").queue();
     }
 
-    if (messageString.equals("!help")) {
-      String helpMenu = "Alright je wee babby, heres yer help:" +
-          "\nCommands:" +
-          "\n!oi twat" +
-          "\nWaddup ya cunt?\n" +
-          "But it aint nuttin for the faint o heart";
+    if (messageString.equals("!twat help")) {
+      String helpMenu = new StringBuilder()
+          .append("Allright ye twat, heres yer help:")
+          .append("\n!twat : !twat Waddup ya cunt? : !twat hotstuff")
+          .toString();
       message.getChannel().sendMessage(helpMenu).queue();
-    }
-
-    if (messageString.equals("!hot stuff")) {
-      message.getChannel().sendMessage("Baby tonight, yeah!").queue();
     }
 
   }
