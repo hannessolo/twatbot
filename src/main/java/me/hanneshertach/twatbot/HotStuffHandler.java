@@ -16,6 +16,8 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 import net.dv8tion.jda.core.managers.AudioManager;
 
+import java.util.concurrent.TimeUnit;
+
 public class HotStuffHandler implements EventListener {
 
   public void onEvent(final Event event) {
@@ -62,6 +64,40 @@ public class HotStuffHandler implements EventListener {
             .sendMessage("Playing hot stuff")
             .queue();
 
+        Thread timer = new Thread(new Runnable() {
+          public void run() {
+
+            System.out.println("Thread started");
+
+            while (player.getPlayingTrack().getPosition() < 60000) {
+              try {
+                System.out.println("Will sleep");
+                Thread.sleep(1000);
+                System.out.println(player.getPlayingTrack().getPosition());
+              } catch (InterruptedException e) {
+                e.printStackTrace();
+              }
+            }
+
+            System.out.println("While loop finished");
+
+            manager.closeAudioConnection();
+            player.destroy();
+
+          }
+        });
+
+        timer.start();
+
+        try {
+          timer.join();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        } finally {
+          manager.closeAudioConnection();
+          player.destroy();
+        }
+
       }
 
       public void playlistLoaded(AudioPlaylist audioPlaylist) {
@@ -80,9 +116,10 @@ public class HotStuffHandler implements EventListener {
             .getChannel()
             .sendMessage("Load Failed")
             .queue();
+
+        throw e;
       }
     });
-
 
 
   }

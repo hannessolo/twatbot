@@ -29,6 +29,10 @@ public class HelpMenuListener implements EventListener {
       message.getChannel().sendMessage("Not much, how bout yerself, je wanker?").queue();
     }
 
+    if (messageString.equals("!tart")) {
+      message.getChannel().sendMessage("Twattart").queue();
+    }
+
     if (messageString.equals("!twat help")) {
       String helpMenu = new StringBuilder()
           .append("Allright ye twat, heres yer help:")
@@ -36,6 +40,8 @@ public class HelpMenuListener implements EventListener {
           .toString();
       message.getChannel().sendMessage(helpMenu).queue();
     }
+
+
 
   }
 }
