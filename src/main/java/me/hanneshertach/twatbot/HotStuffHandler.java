@@ -17,6 +17,7 @@ import net.dv8tion.jda.core.hooks.EventListener;
 import net.dv8tion.jda.core.managers.AudioManager;
 
 public class HotStuffHandler implements EventListener {
+
   public void onEvent(final Event event) {
 
     if (!(event instanceof MessageReceivedEvent)) {
@@ -34,14 +35,12 @@ public class HotStuffHandler implements EventListener {
       return;
     }
 
-    System.out.println("Hotstuff");
-
     Guild guild = ((MessageReceivedEvent) event).getMessage().getGuild();
 
     final VoiceChannel channel = guild
         .getVoiceChannelsByName("General", true).get(0);
 
-    AudioManager manager = guild.getAudioManager();
+    final AudioManager manager = guild.getAudioManager();
 
     AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
     AudioSourceManagers.registerRemoteSources(playerManager);
@@ -83,6 +82,7 @@ public class HotStuffHandler implements EventListener {
             .queue();
       }
     });
+
 
 
   }
